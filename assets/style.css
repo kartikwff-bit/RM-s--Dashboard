@@ -114,10 +114,10 @@ tbody tr:hover td { color: var(--text); }
 .badge-secondary { background: var(--bg3); color: var(--text2); }
 
 /* ===== MODALS ===== */
-.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.7); z-index: 200; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity .2s; }
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.8); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: all .3s ease; backdrop-filter: blur(4px); }
 .modal-overlay.open { opacity: 1; pointer-events: all; }
-.modal { background: var(--card); border: 1px solid var(--border2); border-radius: var(--radius-lg); padding: 28px; width: 100%; max-width: 500px; transform: scale(.95); transition: transform .2s; max-height: 90vh; overflow-y: auto; }
-.modal-overlay.open .modal { transform: scale(1); }
+.modal { background: var(--card); border: 1px solid var(--border2); border-radius: var(--radius-lg); padding: 32px; width: 100%; max-width: 500px; transform: translateY(20px); transition: all .3s ease; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.5); position: relative; z-index: 10000; }
+.modal-overlay.open .modal { transform: translateY(0); }
 .modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
 .modal-title { font-size: 17px; font-weight: 700; }
 .modal-close { background: transparent; border: none; color: var(--text2); cursor: pointer; font-size: 20px; padding: 4px; border-radius: 4px; }
