@@ -268,6 +268,9 @@ function renderApp() {
             <div class="badge-dot"></div>
             <span>${State.currentEmployee.employee_name}</span>
           </div>
+          <button class="btn btn-secondary btn-sm" onclick="logout()" style="border-color:var(--danger);color:var(--danger);background:rgba(239,68,68,0.05);">
+            🚪 Logout
+          </button>
         </div>
       </div>
       <div class="content" id="page-content"></div>
