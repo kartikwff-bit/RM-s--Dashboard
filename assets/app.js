@@ -55,11 +55,11 @@ function toast(type, title, message) {
 function modal(id, title, bodyHTML, footerHTML = '') {
   const existing = document.getElementById(id);
   if (existing) existing.remove();
-  const m = document.createElement('div');
-  m.id = id;
-  m.className = 'modal fade-in';
-  m.innerHTML = `
-    <div class="modal-content">
+  const overlay = document.createElement('div');
+  overlay.id = id;
+  overlay.className = 'modal-overlay open';
+  overlay.innerHTML = `
+    <div class="modal fade-in">
       <div class="modal-header">
         <h3 class="modal-title">${title}</h3>
         <button class="modal-close" onclick="closeModal('${id}')">✕</button>
@@ -67,12 +67,15 @@ function modal(id, title, bodyHTML, footerHTML = '') {
       <div class="modal-body">${bodyHTML}</div>
       ${footerHTML ? `<div class="modal-footer">${footerHTML}</div>` : ''}
     </div>`;
-  document.body.appendChild(m);
+  document.body.appendChild(overlay);
 }
 
 function closeModal(id) {
-  const m = document.getElementById(id);
-  if (m) { m.classList.remove('fade-in'); m.style.opacity = '0'; setTimeout(() => m.remove(), 200); }
+  const overlay = document.getElementById(id);
+  if (overlay) {
+    overlay.classList.remove('open');
+    setTimeout(() => overlay.remove(), 200);
+  }
 }
 
 // ═══════════════════════════════════════════════════════════
