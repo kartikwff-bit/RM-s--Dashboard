@@ -234,7 +234,7 @@ function renderApp() {
   const navHTML = navItems.map(n => `
     <div class="nav-item ${State.currentPage === n.id ? 'active' : ''}" id="nav-${n.id}" onclick="navigate('${n.id}')">
       <span class="nav-icon">${n.icon}</span>
-      <span>${n.label}</span>
+      <span class="nav-label-text">${n.label}</span>
     </div>`).join('');
 
   document.getElementById('app').innerHTML = `
@@ -250,25 +250,40 @@ function renderApp() {
       <div class="nav-section" style="flex:0;border-top:1px solid var(--border);padding-top:8px;">
         <div class="nav-item" onclick="logout()">
           <span class="nav-icon" style="color:var(--danger)">🚪</span>
-          <span style="color:var(--danger)">Logout (${State.currentEmployee.employee_name})</span>
+          <span class="nav-label-text" style="color:var(--danger)">Logout</span>
         </div>
       </div>
     </div>
-    <div class="main-content">
+    <div class="main ${State.sidebarCollapsed ? 'expanded' : ''}" id="main-area">
       <div class="topbar">
         <div class="topbar-left">
-          <button class="toggle-btn" onclick="document.getElementById('sidebar').classList.toggle('collapsed'); State.sidebarCollapsed = !State.sidebarCollapsed;">☰</button>
-          <h2 style="font-size:20px;font-weight:600;margin:0;">${navItems.find(n => n.id === State.currentPage)?.label || 'Dashboard'}</h2>
+          <button class="btn-icon" onclick="toggleSidebar()">☰</button>
+          <div class="page-title" id="page-title-text">${navItems.find(n => n.id === State.currentPage)?.label || 'Dashboard'}</div>
         </div>
-        <div class="user-badge">
-          <div class="user-avatar">${State.currentEmployee.employee_name.charAt(0)}</div>
-          <span>${State.currentEmployee.employee_name}</span>
+        <div class="topbar-right">
+          <div class="employee-badge">
+            <div class="badge-dot"></div>
+            <span>${State.currentEmployee.employee_name}</span>
+          </div>
         </div>
       </div>
-      <div class="page-content" id="page-content"></div>
+      <div class="content" id="page-content"></div>
     </div>`;
 
   navigate(State.currentPage);
+}
+
+function toggleSidebar() {
+  State.sidebarCollapsed = !State.sidebarCollapsed;
+  const sidebar = document.getElementById('sidebar');
+  const main = document.getElementById('main-area');
+  if (State.sidebarCollapsed) {
+    sidebar.classList.add('collapsed');
+    main.classList.add('expanded');
+  } else {
+    sidebar.classList.remove('collapsed');
+    main.classList.remove('expanded');
+  }
 }
 
 // ═══════════════════════════════════════════════════════════
